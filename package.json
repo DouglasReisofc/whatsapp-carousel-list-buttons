@@ -8,7 +8,8 @@
     "send:winner": "node scripts/send-winner-clean.js",
     "send:clean": "node scripts/send-clean-variants.js",
     "send:capacity": "node scripts/send-capacity-test.js",
-    "check": "node --check lib/connection.js && node --check lib/interactive.js && node --check scripts/send-winner-clean.js && node --check scripts/send-clean-variants.js && node --check scripts/send-capacity-test.js"
+    "send:list-matrix": "node scripts/send-list-render-matrix.js",
+    "check": "node --check lib/connection.js && node --check lib/interactive.js && node --check scripts/send-winner-clean.js && node --check scripts/send-clean-variants.js && node --check scripts/send-capacity-test.js && node --check scripts/send-list-render-matrix.js"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",

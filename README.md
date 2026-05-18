@@ -79,6 +79,12 @@ Enviar a bateria de capacidade:
 npm run send:capacity -- 559295296926
 ```
 
+Enviar matriz focada em renderizacao de listas:
+
+```bash
+npm run send:list-matrix -- 120363406245712972@g.us
+```
+
 Argumentos aceitos pelos scripts:
 
 ```bash
@@ -86,6 +92,17 @@ node scripts/send-winner-clean.js <jid-ou-numero> [sessionDir] [thumbPath] [oute
 ```
 
 `outerMode` pode ser `none` para `CLEAN-02` ou `headerless` para `CLEAN-03`.
+
+## Observacao sobre duas listas
+
+O envio com dois `single_select` no mesmo card pode retornar OK, mas alguns clientes podem renderizar apenas os outros botoes, como `quick_reply` e `cta_copy`.
+
+Para duas listas, os formatos mais seguros para continuar testando sao:
+
+- uma unica `single_select` com multiplas secoes
+- duas listas em cards separados no carousel
+
+O script `send:list-matrix` testa exatamente esses cenarios.
 
 ## Importante antes de subir para o GitHub
 

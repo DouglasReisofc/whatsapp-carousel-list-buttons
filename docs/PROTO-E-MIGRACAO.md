@@ -222,6 +222,40 @@ A bateria `send-capacity-test.js` enviou com sucesso:
 
 Esse teste confirma envio pela lib e renderizacao reportada pelo usuario, mas nao significa que o WhatsApp documenta oficialmente esses limites.
 
+## Observacao apos o teste no grupo
+
+No print do `CAP-17 duas listas headerless`, o card renderizou a imagem, o texto, o `QUICK` e o `COPIAR`, mas nao mostrou os botoes `single_select`.
+
+Isso e importante porque o envio retornou OK, mas a renderizacao do cliente pode ocultar listas quando existem dois `single_select` no mesmo card.
+
+Hipoteses que precisam ser consideradas ao migrar:
+
+- alguns clientes aceitam somente um `single_select` visivel por card;
+- a ordem do `single_select` pode influenciar;
+- o limite real pode ser de um botao de lista mais outros botoes simples;
+- multiplas secoes dentro de uma unica lista tendem a ser uma alternativa melhor do que duas listas nativas separadas;
+- duas listas em cards separados podem ser melhor do que duas listas no mesmo card.
+
+Para investigar isso foi criado:
+
+```bash
+npm run send:list-matrix -- 120363406245712972@g.us
+```
+
+Essa bateria envia:
+
+- `LR-01`: uma lista + quick + copy
+- `LR-02`: somente uma lista
+- `LR-03`: uma lista + 6 botoes
+- `LR-04`: lista por ultimo
+- `LR-05`: lista no meio
+- `LR-06`: duas listas somente
+- `LR-07`: duas listas + quick + copy
+- `LR-08`: uma lista com duas secoes
+- `LR-09`: duas listas em cards separados
+
+Se a meta for producao/migracao, prefira primeiro `LR-08` ou `LR-09` quando precisar representar duas listas.
+
 ## Como migrar para outra lib
 
 Ao trocar de lib, procure estes recursos:
@@ -271,6 +305,7 @@ Evite estes formatos se o objetivo for funcionar nos dois:
 - `scripts/send-winner-clean.js`: envio minimo do vencedor.
 - `scripts/send-clean-variants.js`: bateria que compara os modos externos.
 - `scripts/send-capacity-test.js`: bateria de limite de itens/botoes.
+- `scripts/send-list-render-matrix.js`: bateria focada em quando a lista aparece ou some.
 - `lib/interactive.js`: funcoes reutilizaveis que montam o proto.
 - `lib/connection.js`: conexao Baileys isolada do bot completo.
 
@@ -281,6 +316,7 @@ npm run check
 npm run send:winner -- 559295296926
 npm run send:clean -- 559295296926
 npm run send:capacity -- 559295296926
+npm run send:list-matrix -- 120363406245712972@g.us
 ```
 
 Antes de subir para GitHub, confirme que `session/` continua ignorado:
