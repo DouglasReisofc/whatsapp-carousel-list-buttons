@@ -104,6 +104,12 @@ Para duas listas, os formatos mais seguros para continuar testando sao:
 
 O script `send:list-matrix` testa exatamente esses cenarios.
 
+## Observacao sobre a parte de cima no grupo
+
+No Android validado via ADB, mesmo mensagens `headerless` aparecem com uma faixa superior com o nome do remetente do grupo e horario.
+
+Isso e do proprio WhatsApp em mensagens recebidas no grupo. O proto remove o texto externo duplicado do carousel, mas nao remove o cabecalho visual do participante.
+
 ## Importante antes de subir para o GitHub
 
 Nao envie:

@@ -256,6 +256,30 @@ Essa bateria envia:
 
 Se a meta for producao/migracao, prefira primeiro `LR-08` ou `LR-09` quando precisar representar duas listas.
 
+## Validacao ADB da parte de cima
+
+Validacao feita em Android via ADB com WhatsApp Business aberto no grupo `Downloads 24 H`.
+
+Resultado observado: mesmo mensagens `headerless` continuam aparecendo com uma faixa superior contendo o nome do remetente do grupo e horario, por exemplo `Aluka` ou `Niako`.
+
+Isso nao e o `body`, `footer` ou `header` externo do proto. No modo `headerless`, o objeto gerado localmente fica sem `body`, sem `footer` e sem `header` externos:
+
+```txt
+OUTER headerless
+has body: false null
+has footer: false null
+has header: false null
+has carousel: true cards: 1
+```
+
+Conclusao: no grupo, essa parte superior restante e cabecalho visual do proprio WhatsApp para mensagens recebidas em grupo. Ela identifica o participante que enviou a mensagem. O proto consegue remover texto externo duplicado do carousel, mas nao consegue remover o nome do remetente que o cliente mostra no grupo.
+
+Implicacao para migracao:
+
+- `CLEAN-02`/`CLEAN-03` removem a parte extra criada por `interactiveMessage.body/footer` externo.
+- Eles nao removem o cabecalho de participante do grupo.
+- Para ver a mensagem sem nome de remetente acima, o teste precisa ser em PV ou no proprio aparelho/conta que enviou a mensagem como `fromMe`.
+
 ## Como migrar para outra lib
 
 Ao trocar de lib, procure estes recursos:
