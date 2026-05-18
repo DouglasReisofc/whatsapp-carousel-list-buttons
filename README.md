@@ -18,6 +18,21 @@ O formato que funcionou no Android e no iPhone foi:
 
 Esse ajuste remove aquela "segunda parte" que aparecia antes da mensagem, porque o texto extra vinha do `body/footer` externo do carousel.
 
+## Documentacao tecnica
+
+Para migrar isso para outra lib ou entender o proto sem depender do bot original, veja:
+
+[docs/PROTO-E-MIGRACAO.md](docs/PROTO-E-MIGRACAO.md)
+
+Esse documento explica:
+
+- arvore completa do `interactiveMessage.carouselMessage`
+- formato do `single_select`, `quick_reply`, `cta_copy` e `cta_url`
+- motivo da mensagem aparecer em duas partes
+- mapa de Baileys para uma lib com proto/raw message
+- resultados de capacidade testados
+- o que evitar ao tentar funcionar em Android e iPhone
+
 ## Resultado dos testes
 
 Passaram nos testes manuais:
